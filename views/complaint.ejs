@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Page</title>
+    <link rel="stylesheet" href="/css/complint_test.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Grievance Form</h1>
+        <form class="complaint-form" id="complaint-form">
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="school" name="school" placeholder="School Name" required>
+
+            <select id="category" name="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="academic">Academic</option>
+                <option value="administrative">Administrative</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea id="comments" name="comments" placeholder="Description" rows="5" required></textarea>
+
+            <input type="submit" value="Submit Complaint">
+        </form>
+    </div>
+    <script src="/scripts/complaint.js"></script>
+</body>
+</html>

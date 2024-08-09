@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>లాగిన్</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="page-title">లాగిన్</h1>
+        <div class="login-option">
+            <div class="radio-option">
+                <input type="radio" id="normal-login" name="login-type" value="normal" checked>
+                <label for="normal-login" id="normal-label">యూజర్ లాగిన్</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="admin-login" name="login-type" value="admin">
+                <label for="admin-login" id="admin-label">అడ్మిన్ లాగిన్</label>
+            </div>
+        </div>
+        <form class="login-form">
+            <input type="text" id="username" name="username" 
+                   placeholder="యూజర్ నేమ్" 
+                   required>
+            
+            <input type="password" id="password" name="password" 
+                   placeholder="పాస్వర్డ్" 
+                   required>
+            
+            <input type="submit" value="లాగిన్" id="submit-button">
+        </form>
+    </div>
+    <script src="../scripts/login.js"></script>
+</body>
+</html>

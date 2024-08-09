@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Selection</title>
+    <link rel="stylesheet" href="/css/school.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="page-title">Select Your School</h1>
+        <form class="school-selection-form">
+            <label for="school-select">Choose a school:</label>
+            <select id="school-select" name="school" required>
+                <option value="" disabled selected>Select a school</option>
+                <option value="school1">School 1</option>
+                <option value="school2">School 2</option>
+                <option value="school3">School 3</option>
+                <option value="school4">School 4</option>
+                <option value="school5">School 5</option>
+            </select>
+            <input type="text" id="school-location" name="school-location" placeholder="Location" required>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="/scripts/school.js"></script>
+</body>
+</html>
+
