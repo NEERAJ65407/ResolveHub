@@ -5,135 +5,56 @@ import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js"
 
-const getAllVideos = asyncHandler(async (req, res) => {
-    
-    const { page = 1, limit = 10, query = null, sortBy = "views", sortType = -1, userId } = req.query
-    console.log(query);
-    const skip = (page-1)*limit;
-    
-    let keyWords = [""] ;
-
-    if(!(query === null)){
-        keyWords =  query.split(" ");
-    } 
-    if( ! keyWords.length>0 ){
-        
-        const allVideos = await Video.aggregate([
+const getAllComplaints = asyncHandler(async (req, res) => {
+    try {
+        // Group complaints by schoolName, count the occurrences, and sort by count descending
+        const complaints = await Complaint.aggregate([
             {
-                "$lookup": {
-                  "from": "users",
-                  "localField": "owner",
-                  "foreignField": "_id",
-                  "as": "ownerDetails"
-                }
-              },
-              {
-               "$addFields": {
-                  "ownerDetails": { "$arrayElemAt": ["$ownerDetails", 0] },
-                  "uploaded" : "$createdAt"
+                $group: {
+                    _id: "$schoolName",
+                    count: { $sum: 1 },
+                    complaints: { $push: "$$ROOT" }
                 }
             },
             {
-              "$project": {
-                "title": 1,
-                "description": 1,
-                "videoFile":1,
-                "thumbnail": 1,
-                "views":1,
-                "ownerDetails.avatar": 1,
-                "ownerDetails.username": 1,
-                "uploaded" : 1
-              }
+                $sort: { count: -1 }
             }
-        ]).skip(skip).limit(limit).sort({ [sortBy]: sortType });
-        console.log(allVideos);
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,allVideos,"Videos fetched ")
-        )
-    }
-    
-    const searchedVideos = await Video.aggregate([
-        {
-          "$addFields": {
-            "titleArray": {"$split" : [ {"$toLower ":"$title"}, " "]},
-            "descriptionArray": {"$split" : [ {"$toLower" :"$description"}," "]
-          }
-        }
-    } ,
-    {
-  "$redact": {
-    "$cond": {
-      "if": {
-        "$or": [
-          {
-            "$gt": [
-              { "$size": { "$setIntersection": ["$descriptionArray", "$keyWords"] } },
-              0
-            ]
-          },
-          {
-            "$gt": [
-              { "$size": { "$setIntersection": ["$titleArray", "$keyWords"] } },
-              0
-            ]
-          }
-        ]
-      },
-      "then": "$$KEEP",
-      "else": "$$PRUNE"
-    }
-  }
-}
-
-    ,
-        {
-            "$lookup": {
-              "from": "users",
-              "localField": "owner",
-              "foreignField": "_id",
-              "as": "ownerDetails"
+        ]);
+  
+        return res.status(200).json({
+            success: true,
+            data: {
+                complaints
             }
-          },
-           ,
-        {
-          "$project": {
-            "title": 1, 
-            "description": 1,
-            "videoFile":1,
-            "thumbnail": 1,
-            "views":1,
-            "ownerDetails.avatar": 1,
-            "ownerDetails.username": 1,
-            "uploaded" : 1
-          }
-        }
-      ]).skip(skip).limit(limit).sort({ [sortBy]: sortType });;
-      
-      
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to fetch complaints',
+            error: error.message
+        });
+    }
+  });
+  
 
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(200,searchedVideos,"videos Retrived")
-    )
-
-})
 
 const publishAComplaint = asyncHandler(async (req, res) => {
     
-    const { school,category, description} = req.body;
-
+    
+    const { name,school,email,location,category, description} = req.body;
+    console.log({name,email,school,location,category, description});
+    
     if (!category || !description){
         throw new ApiError(400,"Title and description are required");
     }
 
     const newComplaint = await Complaint.create({
-        category : category,
-        description : description,
-        school : school,
-        owner : req.user?._id
+      schoolName : school,
+      schoolLocation: location,
+      category : category,
+      description : description,
+      ownerName : name,
+      ownerEmail: email
     })
 
     if(! newComplaint) {
@@ -150,5 +71,6 @@ const publishAComplaint = asyncHandler(async (req, res) => {
 
 
 export {
-    publishAComplaint
+    publishAComplaint,
+    getAllComplaints
 }

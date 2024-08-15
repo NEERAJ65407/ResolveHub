@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Selection</title>
+    <title>పాఠశాల ఎంపిక</title>
     <link rel="stylesheet" href="/css/school.css">
 </head>
 <body>
     <div class="container">
-        <h1 id="page-title">Select Your School</h1>
+        <h1 id="page-title">మీ పాఠశాలను ఎంచుకోండి</h1>
         <div class="logout-container">
-            <a href="http://localhost:8000/api/v1/users/login" id="logout-button" class="logout-button">Logout</a>
-        </div>
+            <a href="http://localhost:8000/api/v1/users/login" id="logout-button" class="logout-button">లాగ్అవుట్</a>
+        </div>        
         <form class="school-selection-form">
-            <label for="school-select">Choose a school:</label>
+            <label for="school-select">ఒక పాఠశాలను ఎంచుకోండి:</label>
             <select id="school-select" name="school" required>
+                <option value="" disabled selected>ఒక పాఠశాలను ఎంచుకోండి</option>
                 <option value="" disabled selected>Select a school</option>
                 <option value="ZPHS-Anantapur">ZPHS Anantapur</option>
                 <option value="ZPHS-Chittoor">ZPHS Chittoor</option>
@@ -62,14 +63,12 @@
                 <option value="ZPHS-WarangalRural">ZPHS Warangal Rural</option>
                 <option value="ZPHS-WarangalUrban">ZPHS Warangal Urban</option>
                 <option value="ZPHS-YadadriBhuvanagiri">ZPHS Yadadri Bhuvanagiri</option>
-
-
             </select>
-            <input type="text" id="school-location" name="school-location" placeholder="Location" required>
+            <input type="text" id="school-location" name="school-location" placeholder="స్థానం" required>
             
             <input type="submit" value="Submit" id="submit-button">
         </form>
     </div>
-    <script src="/js/school.js"></script>
+    <script src="/js/school_telugu.js"></script>
 </body>
 </html>

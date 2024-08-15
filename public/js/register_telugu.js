@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
           console.log('Registration successful:', data);
           form.reset(); // Reset form after successful submissio
-          window.location.href = '/api/v1/school/school'; 
+          window.location.href = '/api/v1/school/school_telugu'; 
           // Handle successful registration (e.g., redirect, show success message)
         })
         .catch(error => {

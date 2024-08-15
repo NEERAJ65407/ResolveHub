@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Redirect to the dashboard or another page
             if(loginType=="normal"){
-                window.location.href = 'http://localhost:8000/api/v1/school/school';
+                window.location.href = 'http://localhost:8000/api/v1/school/school_telugu';
             } else {
                 window.location.href = 'http://localhost:8000/api/v1/users/admin';
             }

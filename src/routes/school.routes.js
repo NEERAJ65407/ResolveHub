@@ -1,18 +1,16 @@
-// import { Router } from 'express';
-// import {
-//     getLikedVideos,
-//     toggleCommentLike,
-//     toggleVideoLike,
-//     toggleTweetLike,
-// } from "../controllers/school.controller.js"
-// import {verifyJWT} from "../middlewares/auth.middelware.js"
+import { Router } from 'express';
+import {
+    addSchool
+} from "../controllers/school.controller.js"
 
-// const router = Router();
-// router.use(verifyJWT); 
 
-// router.route("/toggle/v/:videoId").post(toggleVideoLike);
-// router.route("/toggle/c/:commentId").post(toggleCommentLike);
-// router.route("/toggle/t/:tweetId").post(toggleTweetLike);
-// router.route("/videos").get(getLikedVideos);
+const router = Router();
 
-// export default router
+router.route("/school").post(addSchool);
+router.get("/school", (req, res) => {
+    res.render("school"); 
+});
+router.get("/school_telugu", (req, res) => {
+    res.render("school_telugu"); 
+});
+export default router

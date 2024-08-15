@@ -35,19 +35,24 @@ app.set('views', path.join(__dirname, '../views')); // Ensure this path is corre
 
 // Import routes
 import userRouter from "./routes/user.routes.js";
-// import complaintRouter from "./routes/complaint.routes.js";
-// import playlistRouter from "./routes/playlist.routes.js";
+import complaintRouter from "./routes/complaint.routes.js";
+import schoolRouter from "./routes/school.routes.js";
 // import subscriptionRouter from "./routes/subscription.routes.js"
 // import commentRouter from "./routes/feedback.routes.js";
 // import likeRouter from "./routes/school.routes.js"
 
 // Route declarations 
 app.use("/api/v1/users", userRouter);
-// app.use("/api/v1/videos", complaintRouter);
+app.use("/api/v1/complaint", complaintRouter);
 // app.use("/api/v1/playlists", playlistRouter);
 // app.use("/api/v1/subscriptions", subscriptionRouter);
 // app.use("/api/v1/comments", commentRouter);
-// app.use("/api/v1/likes", likeRouter);
+app.use("/api/v1/school", schoolRouter);
 // app.use("/api/v1/dashboard", dashboardRouter);
+
+app.get('/', (req, res) => {
+    res.render('home')
+});
+
 
 export { app };

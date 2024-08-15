@@ -3,9 +3,13 @@ import mongoose from 'mongoose';
 import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2'; //used to write aggregate pipelines in mongodb
 
 const complaintSchema = mongoose.Schema({
-    school : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "School"
+    schoolName : {
+        type : String,
+        required : true
+    },
+    schoolLocation:{
+        type : String,
+        required : true
     },
     category : {
         type : String,
@@ -15,9 +19,13 @@ const complaintSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    owner : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "User"
+    ownerName : {
+        type : String,
+        required : true
+    },
+    ownerEmail: {
+        type : String,
+        required : true
     }
 
 },{

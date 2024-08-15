@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Success:', data);
             
-            window.location.href = '/api/v1/users/feedback';
+            window.location.href = '/api/v1/users/feedback_telugu';
         })
         .catch((error) => {
             console.error('Error:', error);

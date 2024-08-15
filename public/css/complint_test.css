@@ -7,37 +7,39 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url('../images/complaint.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .container {
     background: white;
-    padding: 30px;
+    padding: 35px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Adjust width if needed */
+    width: 450px;
     text-align: center;
-    animation: fadeIn 1s ease-out; /* Fade-in animation */
-    transform: translateY(20px); /* Initial position for slide-in effect */
+    animation: fadeIn 1s ease-out;
 }
 
 h1 {
     margin-top: 0;
-    font-size: 24px; /* Consistent font size for headings */
-    animation: slideIn 0.6s ease-out; /* Slide-in animation for heading */
+    font-size: 24px;
+    color: #333;
+    animation: slideIn 0.5s ease-out;
 }
 
 .complaint-form {
     margin-top: 20px;
-    animation: fadeInUp 1s ease-out; /* Fade-in up animation for form */
+    text-align: left; /* Align form elements to the left */
 }
 
 .complaint-form label {
     display: block;
-    margin-bottom: 10px;
-    font-size: 16px; /* Consistent font size for labels */
-    color: #333; /* Improved color for better readability */
-    text-align: left;
-    animation: fadeIn 0.6s ease-out; /* Fade-in animation for labels */
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
 }
 
 .complaint-form input[type="text"], 
@@ -45,47 +47,47 @@ h1 {
 .complaint-form textarea, 
 .complaint-form select, 
 .complaint-form input[type="submit"] {
-    width: calc(100% - 22px); /* Adjust width to account for padding and borders */
-    padding: 12px; /* Slightly increased padding for better touch target */
-    margin: 10px 0; /* Consistent vertical spacing */
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px; /* Increased spacing between elements */
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    font-size: 16px; /* Consistent font size for form elements */
-    font-family: Arial, sans-serif; /* Ensure consistent font */
-    transition: all 0.4s ease; /* Smooth transition for all changes */
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
 }
 
 .complaint-form textarea {
-    resize: vertical; /* Allow resizing only vertically */
+    resize: vertical;
+    min-height: 120px;
 }
 
 .complaint-form select {
-    padding: 10px; /* Padding inside the dropdown */
-    background: white; /* Ensure background consistency */
+    padding: 12px;
 }
 
 .complaint-form input[type="text"]:focus, 
 .complaint-form input[type="email"]:focus, 
 .complaint-form textarea:focus, 
 .complaint-form select:focus {
-    border-color: #4CAF50; /* Highlight border on focus */
-    box-shadow: 0 0 8px rgba(0, 128, 0, 0.3); /* Shadow effect on focus */
-    outline: none; /* Remove default focus outline */
-    transform: scale(1.02); /* Slightly scale input on focus */
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(0, 128, 0, 0.2);
+    outline: none;
 }
 
 .complaint-form input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #FFA500; /* Orange */
     color: white;
     border: none;
     cursor: pointer;
-    transition: background-color 0.4s ease, transform 0.3s ease; /* Smooth transitions */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 14px;
 }
 
 .complaint-form input[type="submit"]:hover {
-    background-color: #45a049;
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
+    background-color: #FF8C00; /* Darker orange */
+    transform: scale(1.05);
 }
 
 @keyframes fadeIn {
@@ -105,16 +107,5 @@ h1 {
     to {
         transform: translateY(0);
         opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }

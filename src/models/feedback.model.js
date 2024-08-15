@@ -3,16 +3,29 @@ import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2';
 
 const feedbackSchema = mongoose.Schema(
     {
-        content : {
-            type : String
+        schoolName : {
+            type : String,
+            required : true
         },
-        video : {
-            type : mongoose.Schema.Types.ObjectId,
-            ref : "Video"
+        schoolLocation:{
+            type : String,
+            required : true
         },
-        owner : {
-            type : mongoose.Schema.Types.ObjectId,
-            ref : "User"
+        category : {
+            type : String,
+            required : true
+        },
+        description : {
+            type : String,
+            required : true
+        },
+        ownerName : {
+            type : String,
+            required : true
+        },
+        ownerEmail: {
+            type : String,
+            required : true
         }
     },
     {   

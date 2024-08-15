@@ -1,132 +1,45 @@
 import mongoose from "mongoose"
-import {Like} from "../models/like.model.js"
+import {School} from "../models/school.model.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 
-const toggleVideoLike = asyncHandler(async (req, res) => {
+const addSchool = asyncHandler(async (req, res) => {
     
-    const {videoId} = req.params
+    const { schoolName,location } = req.body;
     
-    if( !videoId ){
-        throw new ApiError(400,"Video id is required");
-    }
-
-    const like = await Like.findOne({ video: videoId});
-
-    if(!like){
-        
-        const video = await Like.create({
-            video : videoId,
-            likedBy : req.user.id
-        })
-
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,video,"Video liked successfully")
-        )
-    } else {
-
-        const video = await Like.deleteOne({
-            video : videoId
-        })
-
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,video,"like removed successfully")
-        )
+    if ([schoolName,location].some(field => field.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
     }
     
+    const school = await School.create({
+        schoolName: schoolName,
+        location : location
+    })
+
+    if(!school){
+        throw new ApiError(500, "Something went wrong while registering school");
+    }
+    const cookieOptions = {
+        httpOnly: true, // Cookie can only be modified by the server
+        secure: process.env.NODE_ENV === 'production', // Secure cookies only in production
+        sameSite: 'None', // Allow cross-site cookies
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+    };
+
+    // Set cookies for schoolName and location
+    res
+        .status(200)
+        .cookie("schoolName", schoolName, cookieOptions)
+        .cookie("location", location, cookieOptions)
+        .json(
+            new ApiResponse(200, school, "School added successfully")
+        );
 })
 
-const toggleCommentLike = asyncHandler(async (req, res) => {
-    
-    const {commentId} = req.params
-    
-    if( !commentId ){
-        throw new ApiError(400,"Comment id is required");
-    }
 
-    const like = await Like.findOne({ comment: commentId});
-
-    if(!like){
-        
-        const comment = await Like.create({
-            comment : commentId,
-            likedBy : req.user.id
-        })
-
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,comment,"Comment liked successfully")
-        )
-    } else {
-
-        const comment = await Like.deleteOne({
-            comment : commentId
-        })
-
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,comment,"like removed successfully")
-        )
-    }
-
-})
-
-const toggleTweetLike = asyncHandler(async (req, res) => {
-    
-    const {tweetId} = req.params
-    //TODO: toggle like on tweet
-}
-)
-
-const getLikedVideos = asyncHandler(async (req, res) => {
-    
-    const videos = await Like.aggregate([
-        {
-            $match : {
-                likedBy : new mongoose.Types.ObjectId(req.user.id)
-            }
-        },
-        {
-            $lookup :{
-                from : "videos",
-                localField : "video",
-                foreignField : "_id",
-                as : "videos"
-            }
-        },
-        {
-            $unwind : "$videos"
-        },
-        {
-            $project : {
-                "videos.title":1
-            }
-        }
-    ])
-    
-    if( !videos) {
-        throw new ApiError(400,"No liked videos");
-    }
-
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(200,videos,"Liked videos fetched successfully")
-    )
-
-})
 
 export {
-    toggleCommentLike,
-    toggleTweetLike,
-    toggleVideoLike,
-    getLikedVideos
+    addSchool
 }
 

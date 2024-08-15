@@ -7,99 +7,43 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.container {
+    background-image: url('../images/complaint.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .container   
+   {
     background: white;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Adjust width if needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px; /* Set maximum width */
     text-align: center;
-    animation: fadeIn 1s ease-out; /* Fade-in animation */
-}
-
-h1 {
-    margin-top: 0;
-    font-size: 24px; /* Consistent font size for headings */
-    animation: slideIn 0.5s ease-out; /* Slide-in animation for heading */
-}
-
-.complaint-form {
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 80vh; /* Adjust height as needed */
+  }
+  
+  
+  #complaints-list {
+    max-height: calc(100% - 150px); /* Adjust based on other elements' height */
+    overflow-y: auto;
     margin-top: 20px;
-}
-
-.complaint-form label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px; /* Consistent font size for labels */
-    color: #333; /* Improved color for better readability */
     text-align: left;
-    animation: fadeIn 0.5s ease-out; /* Fade-in animation for labels */
-}
-
-.complaint-form input[type="text"], 
-.complaint-form input[type="email"], 
-.complaint-form textarea, 
-.complaint-form select, 
-.complaint-form input[type="submit"] {
-    width: calc(100% - 22px); /* Adjust width to account for padding and borders */
-    padding: 12px; /* Slightly increased padding for better touch target */
-    margin: 10px 0; /* Consistent vertical spacing */
+  }
+  
+  .complaint {
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    font-size: 16px; /* Consistent font size for form elements */
-    font-family: Arial, sans-serif; /* Ensure consistent font */
-    transition: all 0.3s ease; /* Smooth transition for all changes */
-}
-
-.complaint-form textarea {
-    resize: vertical; /* Allow resizing only vertically */
-}
-
-.complaint-form select {
-    padding: 10px; /* Padding inside the dropdown */
-}
-
-.complaint-form input[type="text"]:focus, 
-.complaint-form input[type="email"]:focus, 
-.complaint-form textarea:focus, 
-.complaint-form select:focus {
-    border-color: #4CAF50; /* Highlight border on focus */
-    box-shadow: 0 0 8px rgba(0, 128, 0, 0.2); /* Shadow effect on focus */
-    outline: none; /* Remove default focus outline */
-}
-
-.complaint-form input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-}
-
-.complaint-form input[type="submit"]:hover {
-    background-color: #45a049;
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .complaint p {
+    margin: 5px 0;
+  }
+  

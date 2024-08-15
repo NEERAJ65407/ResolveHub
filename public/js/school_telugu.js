@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.value = 'Submit';
             submitButton.disabled = false;
             // Redirect to another page
-            window.location.href = '/api/v1/complaint/complaint'; 
+            window.location.href = '/api/v1/complaint/complaint_telugu'; 
         })
         .catch(error => {
             console.error('Error:', error);

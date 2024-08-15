@@ -1,71 +1,58 @@
 import mongoose from "mongoose"
-import {Comment} from "../models/comment.model.js"
+import {Feedback} from "../models/feedback.model.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 
-const getVideoComments = asyncHandler(async (req, res) => {
-    //TODO: get all comments for a video
-    const {videoId} = req.params;
-    const {page = 1, limit = 10} = req.query;
-    
-    const skip = (page-1) * limit;
-    
-    const comments = await Comment.find({video:videoId})
-    .skip(skip)
-    .limit(limit)
-    
-    const totalCount = await Comment.countDocuments({video:videoId});
-
-    const totalPages = Math.ceil(totalCount/limit);
-
-    
-    return res.status(200).json({
-        success: true,
-        data: {
-            comments,
-            pagination: {
-                page,
-                limit,
-                totalCount,
-                totalPages
+const getAllFeedbacks = asyncHandler(async (req, res) => {
+    try {
+        // Fetch all complaints without pagination
+        const feedbacks = await Feedback.find();
+  
+        return res.status(200).json({
+            success: true,
+            data: {
+                feedbacks
             }
-        }
-    });
-});
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to fetch complaints',
+            error: error.message
+        });
+    }
+  });
 
-const addComment = asyncHandler(async (req, res) => {
+const publishAFeedback = asyncHandler(async (req, res) => {
     
-    const {videoId} = req.params;
-
-    const {comment} = req.body;
     
-    if( !videoId){
-        throw new ApiError(400,"Video id is required");
+    const { name,school,email,location,category, description} = req.body;
+    console.log({name,email,school,location,category, description});
+    
+    if (!category || !description){
+        throw new ApiError(400,"Title and description are required");
     }
 
-    if( !comment){
-        throw new ApiError(400,"comment is required");
-    }
+    const newFeedback = await Feedback.create({
+      schoolName : school,
+      schoolLocation: location,
+      category : category,
+      description : description,
+      ownerName : name,
+      ownerEmail: email
+    })
+    console.log(newFeedback);
     
-    const newComment = await Comment.create({
-
-        content : comment,
-        video : videoId,
-        owner : req.user.id
-
-    },{timestamps:true})
-    
-    if(!newComment){
-        throw new ApiError(500,"Error while adding comment");
+    if(! newFeedback) {
+        throw new ApiError(500,"Error while uploading feedback");
     }
 
     return res
     .status(200)
     .json(
-        new ApiResponse(200,newComment,"Comment has been added successfully")
+        new ApiResponse(200,newFeedback,"The feedback has been published successfully")
     )
-
 })
 
 const updateComment = asyncHandler(async (req, res) => {
@@ -118,8 +105,6 @@ const deleteComment = asyncHandler(async (req, res) => {
 })
 
 export {
-    getVideoComments, 
-    addComment, 
-    updateComment,
-     deleteComment
+    publishAFeedback, 
+    getAllFeedbacks
     }
